@@ -1,0 +1,28 @@
+<form>
+  <h2>Do you like cake?</h2>
+  <input
+    autocomplete="off"
+    name="name"
+    type="text"
+    [(ngModel)]="name">
+  <input
+    name="checkbox"
+    type="checkbox"
+    [(ngModel)]="doesLike">
+
+  <button
+    type="button"
+    (click)="vote()">
+    Vote!
+  </button>
+
+  <button
+    type="button"
+    (click)="clear()">
+    Clear
+  </button>
+
+  <div>
+    {{ name | json }} | {{ doesLike | json }}
+  </div>
+</form>
