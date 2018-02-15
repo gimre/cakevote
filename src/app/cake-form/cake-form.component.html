@@ -1,14 +1,13 @@
-<form>
+<form [formGroup]="form">
   <h2>Do you like cake?</h2>
   <input
     autocomplete="off"
-    name="name"
     type="text"
-    [(ngModel)]="name">
+    formControlName="name">
   <input
     name="checkbox"
     type="checkbox"
-    [(ngModel)]="doesLike">
+    formControlName="doesLike">
 
   <button
     type="button"
@@ -23,6 +22,6 @@
   </button>
 
   <div>
-    {{ name | json }} | {{ doesLike | json }}
+    {{ form.value | json }}
   </div>
 </form>

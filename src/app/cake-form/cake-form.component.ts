@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VoteServiceService } from '../vote-service.service';
 
 @Component({
@@ -8,24 +9,32 @@ import { VoteServiceService } from '../vote-service.service';
 })
 export class CakeFormComponent implements OnInit {
 
-  name: string = '';
-  doesLike: boolean = false;
+  form: FormGroup = this._fb.group( {
+    name: [ null ],
+    doesLike: [ null ]
+  } );
 
   constructor(
+    private _fb: FormBuilder,
     private _voteService: VoteServiceService
   ) { }
 
   ngOnInit() {
+    this.form.setValue( {
+      name: 'gabi',
+      doesLike: true
+    } )
   }
 
   clear( ) {
-    this.name = '';
-    this.doesLike = false;
+    this.form.reset( )
   }
 
   vote( ) {
+    const { name, doesLike } = this.form.getRawValue( )
+
     this._voteService
-      .vote( this.name, this.doesLike )
+      .vote( name, doesLike )
       .subscribe( );
   }
 
