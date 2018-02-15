@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VoteServiceService } from '../vote-service.service';
 
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
 @Component({
   selector: 'app-cake-form',
   templateUrl: './cake-form.component.html',
@@ -20,10 +23,10 @@ export class CakeFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.form.setValue( {
-      name: 'gabi',
-      doesLike: true
-    } )
+    this.form.valueChanges
+      .map( model => ( { ... model, name: model.name.toUpperCase( )  } ) )
+      .filter( model => ! model.name.match( /^M/ ) )
+      .subscribe( console.log.bind( console ) )
   }
 
   clear( ) {
